@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" viewBox="0 0 680 980" style="background:#ffffff;font-family:sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- shared styles via inline -->
+  <style>
+    .th { font-size:14px; font-weight:500; fill:#2C2C2A; }
+    .ts { font-size:12px; font-weight:400; fill:#5F5E5A; }
+    .arr { stroke:#888780; stroke-width:1.5; fill:none; }
+    .c-gray-rect  { fill:#F1EFE8; stroke:#5F5E5A; }
+    .c-purple-rect{ fill:#EEEDFE; stroke:#534AB7; }
+    .c-teal-rect  { fill:#E1F5EE; stroke:#0F6E56; }
+    .c-blue-rect  { fill:#E6F1FB; stroke:#185FA5; }
+    .c-amber-rect { fill:#FAEEDA; stroke:#854F0B; }
+    .c-teal-th  { fill:#085041; }
+    .c-teal-ts  { fill:#0F6E56; }
+    .c-blue-th  { fill:#0C447C; }
+    .c-blue-ts  { fill:#185FA5; }
+    .c-amber-th { fill:#633806; }
+    .c-amber-ts { fill:#854F0B; }
+    .c-purple-th{ fill:#3C3489; }
+    .c-purple-ts{ fill:#534AB7; }
+    .c-gray-th  { fill:#444441; }
+    .c-gray-ts  { fill:#5F5E5A; }
+    .badge-teal  { fill:#E1F5EE; stroke:#0F6E56; }
+    .badge-blue  { fill:#E6F1FB; stroke:#185FA5; }
+    .badge-amber { fill:#FAEEDA; stroke:#854F0B; }
+    .badge-gray  { fill:#F1EFE8; stroke:#5F5E5A; }
+    .rework { stroke:#B4B2A9; stroke-width:0.8; stroke-dasharray:4 3; fill:none; }
+    .dim { stroke:#D3D1C7; stroke-width:0.5; stroke-dasharray:3 3; }
+    .merge { stroke:#888780; stroke-width:1; fill:none; }
+  </style>
+
+  <!-- ═══ LEGEND ═══ -->
+  <rect x="16" y="16" width="200" height="148" rx="8" fill="none" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="116" y="36" text-anchor="middle">Legend</text>
+  <rect x="26" y="48" width="12" height="12" rx="2" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="ts c-gray-ts" x="44" y="58">Common node</text>
+  <rect x="26" y="68" width="12" height="12" rx="2" class="c-purple-rect" stroke-width="0.5"/>
+  <text class="ts c-gray-ts" x="44" y="78">Decision point</text>
+  <rect x="26" y="88" width="12" height="12" rx="2" class="c-teal-rect" stroke-width="0.5"/>
+  <text class="ts c-gray-ts" x="44" y="98">Route A — jetbridge (near)</text>
+  <rect x="26" y="108" width="12" height="12" rx="2" class="c-blue-rect" stroke-width="0.5"/>
+  <text class="ts c-gray-ts" x="44" y="118">Route B — jetbridge (far)</text>
+  <rect x="26" y="128" width="12" height="12" rx="2" class="c-amber-rect" stroke-width="0.5"/>
+  <text class="ts c-gray-ts" x="44" y="138">Route C — bus transfer</text>
+  <line x1="26" y1="152" x2="50" y2="152" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="4 3"/>
+  <text class="ts c-gray-ts" x="56" y="156">Rework loop (~8%)</text>
+
+  <!-- ═══ SYSTEM PARAMETERS ═══ -->
+  <rect x="240" y="16" width="424" height="148" rx="8" fill="none" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="452" y="36" text-anchor="middle">System parameters</text>
+  <text class="ts c-gray-ts" x="252" y="56">Arrival:  Exponential(15 min)  —  ~32 aircraft / 8-hr shift</text>
+  <text class="ts c-gray-ts" x="252" y="74">Resources:  Route A — 4 near jetbridges  |  Route B — 5 far jetbridges  |  Route C — 4 buses</text>
+  <text class="ts c-gray-ts" x="252" y="92">Ground crew (shared, downstream): 5 teams</text>
+  <text class="ts c-gray-ts" x="252" y="110">NN input:  queue_A, queue_B, queue_C  (lengths at decision point)</text>
+  <text class="ts c-gray-ts" x="252" y="128">NN output:  predicted total time in system (minutes)</text>
+  <text class="ts c-gray-ts" x="252" y="146">Selection policy:  pick route with minimum predicted time</text>
+
+  <!-- ═══ COMMON UPSTREAM ═══ -->
+  <text class="ts" x="16" y="194" fill="#888780">Common upstream</text>
+  <line x1="16" y1="198" x2="16" y2="308" class="dim"/>
+
+  <rect x="30" y="200" width="158" height="52" rx="6" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="109" y="221" text-anchor="middle" dominant-baseline="central">Approach hold</text>
+  <text class="ts c-gray-ts" x="109" y="239" text-anchor="middle" dominant-baseline="central">Runway resource</text>
+  <line x1="188" y1="226" x2="220" y2="226" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="220" y="200" width="158" height="52" rx="6" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="299" y="221" text-anchor="middle" dominant-baseline="central">Landing &amp; taxi-in</text>
+  <text class="ts c-gray-ts" x="299" y="239" text-anchor="middle" dominant-baseline="central">To apron area</text>
+  <line x1="378" y1="226" x2="410" y2="226" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="410" y="200" width="158" height="52" rx="6" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="489" y="221" text-anchor="middle" dominant-baseline="central">Stand allocation queue</text>
+  <text class="ts c-gray-ts" x="489" y="239" text-anchor="middle" dominant-baseline="central">Wait for dispatcher</text>
+  <line x1="489" y1="252" x2="489" y2="308" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- ═══ DECISION POINT ═══ -->
+  <rect x="314" y="308" width="350" height="52" rx="10" class="c-purple-rect" stroke-width="1"/>
+  <text class="th c-purple-th" x="489" y="329" text-anchor="middle" dominant-baseline="central">Decision point</text>
+  <text class="ts c-purple-ts" x="489" y="347" text-anchor="middle" dominant-baseline="central">Dispatcher assigns stand type</text>
+
+  <!-- ═══ BRANCH ARROWS ═══ -->
+  <path d="M370 360 L370 400 L96 400 L96 424" class="merge" marker-end="url(#arrow)"/>
+  <line x1="489" y1="360" x2="489" y2="424" class="arr" marker-end="url(#arrow)"/>
+  <path d="M608 360 L608 400 L614 400 L614 424" class="merge" marker-end="url(#arrow)"/>
+  <text class="ts" x="96"  y="394" text-anchor="middle" fill="#888780">Route A</text>
+  <text class="ts" x="489" y="394" text-anchor="middle" fill="#888780">Route B</text>
+  <text class="ts" x="614" y="394" text-anchor="middle" fill="#888780">Route C</text>
+
+  <!-- ═══ ROUTE A ═══ -->
+  <rect x="28" y="408" width="136" height="16" rx="8" class="badge-teal" stroke-width="0.5"/>
+  <text class="ts c-teal-ts" x="96" y="419" text-anchor="middle">4 near jetbridges</text>
+
+  <rect x="28" y="426" width="136" height="52" rx="6" class="c-teal-rect" stroke-width="0.5"/>
+  <text class="th c-teal-th" x="96" y="447" text-anchor="middle" dominant-baseline="central">A1  Taxi to near stand</text>
+  <text class="ts c-teal-ts" x="96" y="465" text-anchor="middle" dominant-baseline="central">Tri(3, 5, 10) min</text>
+
+  <path d="M28 452 L14 452 L14 334 L314 334" class="rework" marker-end="url(#arrow)"/>
+  <text class="ts" x="17" y="422" fill="#B4B2A9">Conflict</text>
+  <text class="ts" x="17" y="436" fill="#B4B2A9">~8%</text>
+
+  <line x1="96" y1="478" x2="96" y2="506" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="28" y="506" width="136" height="52" rx="6" class="c-teal-rect" stroke-width="0.5"/>
+  <text class="th c-teal-th" x="96" y="527" text-anchor="middle" dominant-baseline="central">A2  Jetbridge docking</text>
+  <text class="ts c-teal-ts" x="96" y="545" text-anchor="middle" dominant-baseline="central">Tri(3, 5, 12) min</text>
+  <line x1="96" y1="558" x2="96" y2="586" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="28" y="586" width="136" height="52" rx="6" class="c-teal-rect" stroke-width="0.5"/>
+  <text class="th c-teal-th" x="96" y="607" text-anchor="middle" dominant-baseline="central">A3  Deboarding</text>
+  <text class="ts c-teal-ts" x="96" y="625" text-anchor="middle" dominant-baseline="central">N(12, 3) min</text>
+
+  <rect x="28" y="647" width="68" height="16" rx="8" class="badge-teal" stroke-width="0.5"/>
+  <text class="ts c-teal-ts" x="62" y="658" text-anchor="middle">3 steps</text>
+
+  <!-- ═══ ROUTE B ═══ -->
+  <rect x="409" y="408" width="160" height="16" rx="8" class="badge-blue" stroke-width="0.5"/>
+  <text class="ts c-blue-ts" x="489" y="419" text-anchor="middle">5 far jetbridges</text>
+
+  <rect x="409" y="426" width="160" height="52" rx="6" class="c-blue-rect" stroke-width="0.5"/>
+  <text class="th c-blue-th" x="489" y="447" text-anchor="middle" dominant-baseline="central">B1  Wait for dispatch</text>
+  <text class="ts c-blue-ts" x="489" y="465" text-anchor="middle" dominant-baseline="central">Tri(2, 5, 12) min</text>
+
+  <path d="M409 452 L392 452 L392 334 L314 334" class="rework" marker-end="url(#arrow)"/>
+  <text class="ts" x="394" y="422" fill="#B4B2A9">Conflict</text>
+  <text class="ts" x="394" y="436" fill="#B4B2A9">~8%</text>
+
+  <line x1="489" y1="478" x2="489" y2="506" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="409" y="506" width="160" height="52" rx="6" class="c-blue-rect" stroke-width="0.5"/>
+  <text class="th c-blue-th" x="489" y="527" text-anchor="middle" dominant-baseline="central">B2  Taxi to far stand</text>
+  <text class="ts c-blue-ts" x="489" y="545" text-anchor="middle" dominant-baseline="central">Tri(10, 15, 25) min</text>
+  <line x1="489" y1="558" x2="489" y2="586" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="409" y="586" width="160" height="52" rx="6" class="c-blue-rect" stroke-width="0.5"/>
+  <text class="th c-blue-th" x="489" y="607" text-anchor="middle" dominant-baseline="central">B3  Jetbridge docking</text>
+  <text class="ts c-blue-ts" x="489" y="625" text-anchor="middle" dominant-baseline="central">Tri(3, 5, 12) min</text>
+  <line x1="489" y1="638" x2="489" y2="666" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="409" y="666" width="160" height="52" rx="6" class="c-blue-rect" stroke-width="0.5"/>
+  <text class="th c-blue-th" x="489" y="687" text-anchor="middle" dominant-baseline="central">B4  Deboarding</text>
+  <text class="ts c-blue-ts" x="489" y="705" text-anchor="middle" dominant-baseline="central">N(12, 3) min</text>
+
+  <rect x="409" y="727" width="68" height="16" rx="8" class="badge-blue" stroke-width="0.5"/>
+  <text class="ts c-blue-ts" x="443" y="738" text-anchor="middle">4 steps</text>
+
+  <!-- ═══ ROUTE C ═══ -->
+  <rect x="574" y="408" width="92" height="16" rx="8" class="badge-amber" stroke-width="0.5"/>
+  <text class="ts c-amber-ts" x="620" y="419" text-anchor="middle">4 buses</text>
+
+  <rect x="574" y="426" width="92" height="52" rx="6" class="c-amber-rect" stroke-width="0.5"/>
+  <text class="th c-amber-th" x="620" y="443" text-anchor="middle" dominant-baseline="central">C1  Drive to</text>
+  <text class="ts c-amber-ts" x="620" y="459" text-anchor="middle" dominant-baseline="central">stand + stairs</text>
+  <text class="ts c-amber-ts" x="620" y="471" text-anchor="middle" dominant-baseline="central">Tri(5, 8, 15) min</text>
+
+  <path d="M666 452 L670 452 L670 334 L664 334" class="rework" marker-end="url(#arrow)"/>
+  <text class="ts" x="646" y="406" fill="#B4B2A9">Conflict ~8%</text>
+
+  <line x1="620" y1="478" x2="620" y2="506" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="574" y="506" width="92" height="52" rx="6" class="c-amber-rect" stroke-width="0.5"/>
+  <text class="th c-amber-th" x="620" y="523" text-anchor="middle" dominant-baseline="central">C2  Deboard</text>
+  <text class="ts c-amber-ts" x="620" y="539" text-anchor="middle" dominant-baseline="central">via stairs</text>
+  <text class="ts c-amber-ts" x="620" y="551" text-anchor="middle" dominant-baseline="central">N(18, 4) min</text>
+
+  <rect x="574" y="568" width="68" height="16" rx="8" class="badge-amber" stroke-width="0.5"/>
+  <text class="ts c-amber-ts" x="608" y="579" text-anchor="middle">2 steps</text>
+
+  <!-- ═══ MERGE ═══ -->
+  <path d="M96 638 L96 812 L250 812" class="merge" marker-end="url(#arrow)"/>
+  <path d="M489 718 L489 812 L250 812" class="merge" marker-end="url(#arrow)"/>
+  <path d="M620 558 L620 812 L430 812" class="merge" marker-end="url(#arrow)"/>
+  <text class="ts" x="340" y="806" text-anchor="middle" fill="#888780">All routes merge</text>
+
+  <!-- ═══ COMMON DOWNSTREAM ═══ -->
+  <text class="ts" x="16" y="830" fill="#888780">Common downstream</text>
+  <line x1="16" y1="834" x2="16" y2="960" class="dim"/>
+
+  <rect x="250" y="820" width="136" height="16" rx="8" class="badge-gray" stroke-width="0.5"/>
+  <text class="ts c-gray-ts" x="318" y="831" text-anchor="middle">5 ground crew teams</text>
+
+  <rect x="250" y="838" width="160" height="52" rx="6" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="330" y="859" text-anchor="middle" dominant-baseline="central">Ground servicing</text>
+  <text class="ts c-gray-ts" x="330" y="877" text-anchor="middle" dominant-baseline="central">Fuel, clean, catering</text>
+  <line x1="410" y1="864" x2="440" y2="864" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="440" y="838" width="160" height="52" rx="6" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="520" y="859" text-anchor="middle" dominant-baseline="central">Servicing sign-off</text>
+  <text class="ts c-gray-ts" x="520" y="877" text-anchor="middle" dominant-baseline="central">All tasks confirmed</text>
+  <line x1="520" y1="890" x2="520" y2="918" class="arr" marker-end="url(#arrow)"/>
+
+  <rect x="440" y="918" width="160" height="52" rx="6" class="c-gray-rect" stroke-width="0.5"/>
+  <text class="th c-gray-th" x="520" y="939" text-anchor="middle" dominant-baseline="central">Pushback ready</text>
+  <text class="ts c-gray-ts" x="520" y="957" text-anchor="middle" dominant-baseline="central">Aircraft exits system</text>
+  <line x1="600" y1="944" x2="636" y2="944" class="arr" marker-end="url(#arrow)"/>
+  <text class="th" x="644" y="948" fill="#5F5E5A">Exit</text>
+
+</svg>
